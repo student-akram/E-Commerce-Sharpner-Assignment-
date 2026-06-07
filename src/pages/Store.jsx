@@ -6,9 +6,9 @@ import { productsArr } from "../data/products";
 const Store = () => {
   return (
     <Container className="my-5">
-      <h2 className="text-center mb-5">
-        MUSIC
-      </h2>
+      <h1 className="text-center mb-5 fw-bold">
+  MUSIC
+</h1>
 
       <Row>
         {productsArr.map((product, index) => (

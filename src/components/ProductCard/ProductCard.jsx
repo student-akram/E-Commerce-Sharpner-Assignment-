@@ -1,23 +1,32 @@
+import { useContext } from "react";
 import { Card, Button } from "react-bootstrap";
+import { CartContext } from "../context/CartContext";
+import "./ProductCard.css";
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useContext(CartContext);
+
   return (
-    <Card className="shadow h-150">
+    <Card className="product-card shadow-sm">
       <Card.Img
         variant="top"
         src={product.imageUrl}
-        height="200px"
-        
+        className="product-image"
       />
 
-      <Card.Body className="text-center">
+      <Card.Body>
         <Card.Title>
           {product.title}
         </Card.Title>
 
-        <h5>₹ {product.price}</h5>
+        <div className="price">
+          ₹ {product.price}
+        </div>
 
-        <Button variant="info">
+        <Button
+          variant="info"
+          onClick={() => addToCart(product)}
+        >
           Add To Cart
         </Button>
       </Card.Body>

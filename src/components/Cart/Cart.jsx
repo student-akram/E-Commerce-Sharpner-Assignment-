@@ -1,18 +1,10 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Button, Table } from "react-bootstrap";
-import { cartElements } from "../../data/CartData";
+import { CartContext } from "../context/CartContext";
 
 const Cart = ({ showCart, closeCart }) => {
-  const [cartItems, setCartItems] =
-    useState(cartElements);
-
-  const removeItem = (title) => {
-    const updatedItems = cartItems.filter(
-      (item) => item.title !== title
-    );
-
-    setCartItems(updatedItems);
-  };
+  const { cartItems, removeItem } =
+    useContext(CartContext);
 
   if (!showCart) return null;
 
@@ -22,7 +14,7 @@ const Cart = ({ showCart, closeCart }) => {
         position: "fixed",
         right: 0,
         top: 0,
-        width: "500px",
+        width: "400px",
         height: "100vh",
         backgroundColor: "white",
         padding: "20px",
@@ -31,7 +23,7 @@ const Cart = ({ showCart, closeCart }) => {
         zIndex: 999,
       }}
     >
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>Cart</h2>
 
         <Button
@@ -42,7 +34,7 @@ const Cart = ({ showCart, closeCart }) => {
         </Button>
       </div>
 
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
             <th>Item</th>
