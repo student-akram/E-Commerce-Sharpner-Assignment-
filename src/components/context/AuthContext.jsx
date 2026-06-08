@@ -11,8 +11,45 @@ const AuthProvider = ({
   children,
 }) => {
 
-  const initialToken =
-    localStorage.getItem("token");
+const tokenFromStorage =
+  localStorage.getItem(
+    "token"
+  );
+
+const expirationTime =
+  localStorage.getItem(
+    "expirationTime"
+  );
+
+let initialToken = "";
+
+if (
+  tokenFromStorage &&
+  expirationTime
+) {
+
+  const currentTime =
+    new Date().getTime();
+
+  if (
+    currentTime <
+    Number(expirationTime)
+  ) {
+
+    initialToken =
+      tokenFromStorage;
+
+  } else {
+
+    localStorage.removeItem(
+      "token"
+    );
+
+    localStorage.removeItem(
+      "expirationTime"
+    );
+  }
+}
 
   const [token, setToken] =
     useState(initialToken);
@@ -20,24 +57,37 @@ const AuthProvider = ({
   const isLoggedIn =
     !!token;
 
-  const login = (token) => {
+const login = (token) => {
 
-    setToken(token);
+  const expirationTime =
+    new Date().getTime() +
+    5 * 60 * 1000;
 
-    localStorage.setItem(
-      "token",
-      token
-    );
-  };
+  setToken(token);
 
-  const logout = () => {
+  localStorage.setItem(
+    "token",
+    token
+  );
 
-    setToken("");
+  localStorage.setItem(
+    "expirationTime",
+    expirationTime
+  );
+};
 
-    localStorage.removeItem(
-      "token"
-    );
-  };
+const logout = () => {
+
+  setToken("");
+
+  localStorage.removeItem(
+    "token"
+  );
+
+  localStorage.removeItem(
+    "expirationTime"
+  );
+};
 
   useEffect(() => {
 
