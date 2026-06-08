@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { CartContext } from "../context/CartContext";
+import { NavLink } from "react-router-dom";
+
 
 const Header = ({ openCart }) => {
   const { cartItems } = useContext(CartContext);
@@ -15,9 +17,26 @@ const Header = ({ openCart }) => {
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Nav className="mx-auto">
-            <Nav.Link href="#">HOME</Nav.Link>
-            <Nav.Link href="#">STORE</Nav.Link>
-            <Nav.Link href="#">ABOUT</Nav.Link>
+            <Nav.Link
+  as={NavLink}
+  to="/"
+>
+  HOME
+</Nav.Link>
+
+<Nav.Link
+  as={NavLink}
+  to="/"
+>
+  STORE
+</Nav.Link>
+
+<Nav.Link
+  as={NavLink}
+  to="/about"
+>
+  ABOUT
+</Nav.Link>
           </Nav>
 
           <Button variant="outline-info" onClick={openCart}>
