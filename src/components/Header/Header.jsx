@@ -4,6 +4,7 @@ import { CartContext } from "../context/CartContext";
 import { NavLink, useLocation } from "react-router-dom";
 
 
+
 const Header = ({ openCart }) => {
   const { cartItems } = useContext(CartContext);
    const location = useLocation();
@@ -39,6 +40,12 @@ const Header = ({ openCart }) => {
   >
     ABOUT
   </Nav.Link>
+  <Nav.Link
+  as={NavLink}
+  to="/movies"
+>
+  MOVIES
+</Nav.Link>
 
 </Nav>
 

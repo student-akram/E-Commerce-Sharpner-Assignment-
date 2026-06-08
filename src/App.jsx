@@ -8,6 +8,7 @@ import Cart from "./components/Cart/Cart";
 import Store from "./pages/Store";
 import About from "./pages/About";
 import Home from "./pages/Home";
+import Movies from "./pages/Movies";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -39,6 +40,10 @@ function App() {
     path="/about"
     element={<About />}
   />
+  <Route
+  path="/movies"
+  element={<Movies />}
+/>
 </Routes>
 
       <Cart
