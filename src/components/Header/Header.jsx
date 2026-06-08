@@ -52,6 +52,12 @@ const Header = ({ openCart }) => {
 >
   CONTACT US
 </Nav.Link>
+<Nav.Link
+  as={NavLink}
+  to="/auth"
+>
+  SIGNUP
+</Nav.Link>
 
 </Nav>
 

@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import ContactUs from "./pages/ContactUs";
 import ProductDetails from "./pages/ProductDetails";
+import Auth from "./pages/Auth";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -56,6 +57,10 @@ function App() {
   element={
     <ProductDetails />
   }
+/>
+<Route
+  path="/auth"
+  element={<Auth />}
 />
 </Routes>
 
