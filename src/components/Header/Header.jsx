@@ -46,6 +46,12 @@ const Header = ({ openCart }) => {
 >
   MOVIES
 </Nav.Link>
+<Nav.Link
+  as={NavLink}
+  to="/contact"
+>
+  CONTACT US
+</Nav.Link>
 
 </Nav>
 

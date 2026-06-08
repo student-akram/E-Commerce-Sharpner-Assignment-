@@ -9,6 +9,7 @@ import Store from "./pages/Store";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -43,6 +44,11 @@ function App() {
   <Route
   path="/movies"
   element={<Movies />}
+
+/>
+<Route
+  path="/contact"
+  element={<ContactUs />}
 />
 </Routes>
 
