@@ -1,6 +1,7 @@
 import {
   createContext,
   useState,
+  useEffect,
 } from "react";
 
 export const AuthContext =
@@ -37,6 +38,57 @@ const AuthProvider = ({
       "token"
     );
   };
+
+  useEffect(() => {
+
+    const validateToken =
+      async () => {
+
+        if (!token) return;
+
+        try {
+
+          const response =
+            await fetch(
+              "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBwZfd5tc5HS1LtC9_J9Mb62JyRtxEOpXA",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json",
+                },
+
+                body: JSON.stringify({
+                  idToken: token,
+                }),
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (
+            !response.ok ||
+            data.error
+          ) {
+
+            logout();
+          }
+
+        } catch (error) {
+
+          console.log(
+            error
+          );
+
+          logout();
+        }
+      };
+
+    validateToken();
+
+  }, [token]);
 
   return (
     <AuthContext.Provider
