@@ -22,6 +22,8 @@ import Profile from "./pages/Profile";
 import { AuthContext } from "./components/context/AuthContext";
 
 function App() {
+  const { isLoggedIn } =
+  useContext(AuthContext);
   const [showCart, setShowCart] =
     useState(false);
 
@@ -73,10 +75,16 @@ function App() {
           element={<ContactUs />}
         />
 
-        <Route
-          path="/product/:productId"
-          element={<ProductDetails />}
-        />
+<Route
+  path="/product/:productId"
+  element={
+    isLoggedIn ? (
+      <ProductDetails />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
 
         <Route
           path="/auth"
