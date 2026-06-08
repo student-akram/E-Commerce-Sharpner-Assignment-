@@ -46,7 +46,7 @@ const Cart = ({ showCart, closeCart }) => {
 
         <tbody>
           {cartItems.map((item) => (
-            <tr key={item.title}>
+            <tr key={item._id}>
               <td>{item.title}</td>
 
               <td>₹{item.price}</td>
@@ -58,7 +58,7 @@ const Cart = ({ showCart, closeCart }) => {
                   variant="danger"
                   size="sm"
                   onClick={() =>
-                    removeItem(item.title)
+                    removeItem(item._id)
                   }
                 >
                   Remove

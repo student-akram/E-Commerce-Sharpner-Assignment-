@@ -65,7 +65,10 @@ const Login = () => {
       }
 
       // Save token in Context + LocalStorage
-      login(data.idToken);
+     login(
+  data.idToken,
+  email
+);
 
       console.log(
         "TOKEN:",
