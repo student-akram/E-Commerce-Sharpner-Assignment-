@@ -7,6 +7,7 @@ import Cart from "./components/Cart/Cart";
 
 import Store from "./pages/Store";
 import About from "./pages/About";
+import Home from "./pages/Home";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -24,9 +25,21 @@ function App() {
       <Header openCart={openCart} />
 
       <Routes>
-        <Route path="/" element={<Store />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+  <Route
+    path="/"
+    element={<Home />}
+  />
+
+  <Route
+    path="/store"
+    element={<Store />}
+  />
+
+  <Route
+    path="/about"
+    element={<About />}
+  />
+</Routes>
 
       <Cart
         showCart={showCart}
