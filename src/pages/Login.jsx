@@ -5,8 +5,7 @@ import {
   Form,
   Button,
 } from "react-bootstrap";
-
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../components/context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] =

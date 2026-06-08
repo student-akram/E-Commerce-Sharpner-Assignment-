@@ -11,9 +11,8 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { CartContext } from "../../context/CartContext";
-import { AuthContext } from "../../context/AuthContext";
-
+import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 const Header = ({ openCart }) => {
   const { cartItems } =
     useContext(CartContext);
