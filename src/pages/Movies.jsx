@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Container,
+  Form,
+  Button,
+  Card,
   Row,
   Col,
-  Card,
-  Button,
-  Form,
 } from "react-bootstrap";
 
 const Movies = () => {
@@ -17,28 +17,7 @@ const Movies = () => {
   const [releaseDate, setReleaseDate] =
     useState("");
 
-  // TASK 9
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
-  const fetchMovies = async () => {
-    try {
-      const response = await fetch(
-        "https://swapi.info/api/films"
-      );
-
-      const data =
-        await response.json();
-
-      setMovies(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // TASK 10
-  const addMovieHandler = (e) => {
+  const addMovieHandler = async (e) => {
     e.preventDefault();
 
     const newMovieObj = {
@@ -47,20 +26,101 @@ const Movies = () => {
       releaseDate,
     };
 
-    console.log(newMovieObj);
+    try {
+      const response = await fetch(
+        "https://movies-app-b026c-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json",
+        {
+          method: "POST",
+          body: JSON.stringify(
+            newMovieObj
+          ),
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+        }
+      );
 
-    setTitle("");
-    setOpeningText("");
-    setReleaseDate("");
+      const data =
+        await response.json();
+
+      console.log(data);
+
+      setTitle("");
+      setOpeningText("");
+      setReleaseDate("");
+
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const fetchMoviesHandler =
+    async () => {
+      try {
+        const response =
+          await fetch(
+            "https://movies-app-b026c-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json"
+          );
+
+        const data =
+          await response.json();
+
+        const loadedMovies =
+          [];
+
+        for (const key in data) {
+          loadedMovies.push({
+            id: key,
+            title:
+              data[key].title,
+            openingText:
+              data[key]
+                .openingText,
+            releaseDate:
+              data[key]
+                .releaseDate,
+          });
+        }
+
+        setMovies(
+          loadedMovies
+        );
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+  const deleteMovieHandler =
+    async (id) => {
+      try {
+        await fetch(
+          `https://movies-app-b026c-default-rtdb.asia-southeast1.firebasedatabase.app/movies/${id}.json`,
+          {
+            method:
+              "DELETE",
+          }
+        );
+
+        setMovies(
+          (prevMovies) =>
+            prevMovies.filter(
+              (movie) =>
+                movie.id !== id
+            )
+        );
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   return (
     <Container className="my-5">
 
-      {/* ADD MOVIE FORM */}
-
-      <Card className="p-4 mb-5 shadow">
-        <h2 className="text-center mb-4">
+      <Card className="p-4 mb-5">
+        <h2 className="mb-4">
           Add Movie
         </h2>
 
@@ -126,7 +186,6 @@ const Movies = () => {
           </Form.Group>
 
           <Button
-            variant="primary"
             type="submit"
           >
             Add Movie
@@ -134,53 +193,55 @@ const Movies = () => {
         </Form>
       </Card>
 
-      {/* MOVIES LIST */}
-
-      <h2 className="text-center mb-4">
-        Movies List
-      </h2>
+      <div className="text-center mb-4">
+        <Button
+          variant="success"
+          onClick={
+            fetchMoviesHandler
+          }
+        >
+          Fetch Movies
+        </Button>
+      </div>
 
       <Row>
         {movies.map((movie) => (
           <Col
-            lg={4}
             md={6}
-            sm={12}
-            key={
-              movie.episode_id
-            }
+            lg={4}
             className="mb-4"
+            key={movie.id}
           >
-            <Card className="h-100 shadow">
+            <Card>
               <Card.Body>
                 <Card.Title>
-                  {movie.title}
+                  {
+                    movie.title
+                  }
                 </Card.Title>
 
                 <Card.Text>
-                  <strong>
-                    Episode:
-                  </strong>{" "}
                   {
-                    movie.episode_id
+                    movie.openingText
                   }
                 </Card.Text>
 
                 <Card.Text>
-                  <strong>
-                    Director:
-                  </strong>{" "}
-                  {movie.director}
-                </Card.Text>
-
-                <Card.Text>
-                  <strong>
-                    Release:
-                  </strong>{" "}
                   {
-                    movie.release_date
+                    movie.releaseDate
                   }
                 </Card.Text>
+
+                <Button
+                  variant="danger"
+                  onClick={() =>
+                    deleteMovieHandler(
+                      movie.id
+                    )
+                  }
+                >
+                  Delete
+                </Button>
               </Card.Body>
             </Card>
           </Col>
