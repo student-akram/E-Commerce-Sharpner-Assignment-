@@ -47,10 +47,16 @@ function App() {
           element={<Home />}
         />
 
-        <Route
-          path="/store"
-          element={<Store />}
-        />
+<Route
+  path="/store"
+  element={
+    isLoggedIn ? (
+      <Store />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
 
         <Route
           path="/about"

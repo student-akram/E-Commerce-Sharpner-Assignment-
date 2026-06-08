@@ -6,6 +6,7 @@ import {
   Button,
 } from "react-bootstrap";
 import { AuthContext } from "../components/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] =
@@ -17,14 +18,21 @@ const Login = () => {
   const [isLoading, setIsLoading] =
     useState(false);
 
+  const [error, setError] =
+    useState("");
+
   const { login } =
     useContext(AuthContext);
+
+  const navigate =
+    useNavigate();
 
   const loginHandler = async (
     event
   ) => {
     event.preventDefault();
 
+    setError("");
     setIsLoading(true);
 
     try {
@@ -56,7 +64,7 @@ const Login = () => {
         );
       }
 
-      // Store token in Context
+      // Save token in Context + LocalStorage
       login(data.idToken);
 
       console.log(
@@ -64,12 +72,11 @@ const Login = () => {
         data.idToken
       );
 
-      alert(
-        "Login Successful"
-      );
+      // Redirect to Store Page
+      navigate("/store");
 
     } catch (error) {
-      alert(error.message);
+      setError(error.message);
     }
 
     setIsLoading(false);
@@ -78,14 +85,20 @@ const Login = () => {
   return (
     <Container className="mt-5">
       <Card
-        className="p-4 mx-auto"
+        className="p-4 mx-auto shadow"
         style={{
           maxWidth: "450px",
         }}
       >
-        <h2 className="text-center">
+        <h2 className="text-center mb-4">
           Login
         </h2>
+
+        {error && (
+          <p className="text-danger text-center">
+            {error}
+          </p>
+        )}
 
         <Form
           onSubmit={
@@ -99,6 +112,7 @@ const Login = () => {
 
             <Form.Control
               type="email"
+              placeholder="Enter Email"
               value={email}
               onChange={(e) =>
                 setEmail(
@@ -116,6 +130,7 @@ const Login = () => {
 
             <Form.Control
               type="password"
+              placeholder="Enter Password"
               value={password}
               onChange={(e) =>
                 setPassword(
