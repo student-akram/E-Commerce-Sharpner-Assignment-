@@ -1,13 +1,11 @@
 import { createContext, useState } from "react";
 
-export const AuthContext =
-  createContext();
+export const AuthContext = createContext();
 
-const AuthProvider = ({
-  children,
-}) => {
-  const [token, setToken] =
-    useState("");
+const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState("");
+
+  const isLoggedIn = !!token;
 
   const login = (token) => {
     setToken(token);
@@ -17,16 +15,13 @@ const AuthProvider = ({
     setToken("");
   };
 
-  const isLoggedIn =
-    !!token;
-
   return (
     <AuthContext.Provider
       value={{
         token,
+        isLoggedIn,
         login,
         logout,
-        isLoggedIn,
       }}
     >
       {children}

@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useState, useContext } from "react";
+import {
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -15,8 +19,14 @@ import Auth from "./pages/Auth";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 
+import { AuthContext } from "./components/context/AuthContext";
+
 function App() {
-  const [showCart, setShowCart] = useState(false);
+  const [showCart, setShowCart] =
+    useState(false);
+
+  const { isLoggedIn } =
+    useContext(AuthContext);
 
   const openCart = () => {
     setShowCart(true);
@@ -31,48 +41,59 @@ function App() {
       <Header openCart={openCart} />
 
       <Routes>
-  <Route
-    path="/"
-    element={<Home />}
-  />
 
-  <Route
-    path="/store"
-    element={<Store />}
-  />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-  <Route
-    path="/about"
-    element={<About />}
-  />
-  <Route
-  path="/movies"
-  element={<Movies />}
+        <Route
+          path="/store"
+          element={<Store />}
+        />
 
-/>
-<Route
-  path="/contact"
-  element={<ContactUs />}
-/>
-<Route
-  path="/product/:productId"
-  element={
-    <ProductDetails />
-  }
-/>
-<Route
-  path="/auth"
-  element={<Auth />}
-/>
-<Route
-  path="/login"
-  element={<Login />}
-/>
-<Route
-  path="/profile"
-  element={<Profile />}
-/>
-</Routes>
+        <Route
+          path="/about"
+          element={<About />}
+        />
+
+        <Route
+          path="/movies"
+          element={<Movies />}
+        />
+
+        <Route
+          path="/contact"
+          element={<ContactUs />}
+        />
+
+        <Route
+          path="/product/:productId"
+          element={<ProductDetails />}
+        />
+
+        <Route
+          path="/auth"
+          element={<Auth />}
+        />
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <Profile />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+      </Routes>
 
       <Cart
         showCart={showCart}

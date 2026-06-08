@@ -13,7 +13,9 @@ import {
 
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 const Header = ({ openCart }) => {
+  const navigate = useNavigate();
   const { cartItems } =
     useContext(CartContext);
 
@@ -31,6 +33,11 @@ const Header = ({ openCart }) => {
         total + item.quantity,
       0
     );
+    const logoutHandler = () => {
+  logout();
+
+  navigate("/login");
+};
 
   return (
     <>
@@ -88,11 +95,10 @@ const Header = ({ openCart }) => {
                   PROFILE
                 </Nav.Link>
 
-                <Nav.Link
-                  onClick={logout}
-                >
-                  LOGOUT
-                </Nav.Link>
+<Nav.Link onClick={logoutHandler}>
+  LOGOUT
+</Nav.Link>
+                  
               </>
             )}
 
