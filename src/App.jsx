@@ -12,6 +12,7 @@ import Movies from "./pages/Movies";
 import ContactUs from "./pages/ContactUs";
 import ProductDetails from "./pages/ProductDetails";
 import Auth from "./pages/Auth";
+import Login from "./pages/Login";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -61,6 +62,10 @@ function App() {
 <Route
   path="/auth"
   element={<Auth />}
+/>
+<Route
+  path="/login"
+  element={<Login />}
 />
 </Routes>
 
