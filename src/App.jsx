@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import ContactUs from "./pages/ContactUs";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -49,6 +50,12 @@ function App() {
 <Route
   path="/contact"
   element={<ContactUs />}
+/>
+<Route
+  path="/product/:productId"
+  element={
+    <ProductDetails />
+  }
 />
 </Routes>
 

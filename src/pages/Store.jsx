@@ -1,7 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 
 import ProductCard from "../components/ProductCard/ProductCard";
-import { productsArr } from "../data/products";
+import  productArr  from "../data/products";
 
 const Store = () => {
   return (
@@ -11,7 +11,7 @@ const Store = () => {
 </h1>
 
       <Row>
-        {productsArr.map((product, index) => (
+        {productArr.map((product, index) => (
           <Col
             md={6}
             lg={6}
