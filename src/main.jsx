@@ -7,13 +7,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import CartProvider from "./components/context/CartContext";
 import { BrowserRouter } from "react-router-dom";
+import AuthProvider from "./context/AuthContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <AuthProvider>
     <BrowserRouter>
     <CartProvider>
       <App />
     </CartProvider>
     </BrowserRouter>
+    </AuthProvider>
   </StrictMode>
 );

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Container,
   Card,
   Form,
   Button,
 } from "react-bootstrap";
+
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] =
@@ -15,6 +17,9 @@ const Login = () => {
 
   const [isLoading, setIsLoading] =
     useState(false);
+
+  const { login } =
+    useContext(AuthContext);
 
   const loginHandler = async (
     event
@@ -51,6 +56,9 @@ const Login = () => {
           "Authentication Failed"
         );
       }
+
+      // Store token in Context
+      login(data.idToken);
 
       console.log(
         "TOKEN:",
@@ -98,6 +106,7 @@ const Login = () => {
                   e.target.value
                 )
               }
+              required
             />
           </Form.Group>
 
@@ -114,6 +123,7 @@ const Login = () => {
                   e.target.value
                 )
               }
+              required
             />
           </Form.Group>
 
